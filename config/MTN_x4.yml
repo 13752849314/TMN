@@ -1,0 +1,43 @@
+# model config
+name: MTN_x4
+model: MTN # []
+first_filters: 32
+filters: 16
+ratio: 8
+drop: 0.0
+scale: 4  # Magnification
+in_ch: 3
+out_ch: 3
+
+# training config
+epochs: 1000
+lr: 0.0002
+use_cuda: True
+gpus: 1
+gpu_idx: [ 0 ]
+sf: 10
+lossF: SLoss # [L1, SLoss]
+loss_weight: 1. # only SLoss
+
+# training data config
+data_name: DF2K
+data_path: ./data/DF2K
+batch_size: 1
+patch_size: 192 # It's actually 192/scale
+
+
+# save config
+result_path: ./results
+model_path: ./checkpoints
+logs_path: ./logs
+
+# test config
+check_point: 1000_1000.pth
+min_size: 60000
+test_data:
+  test_1:
+    data_name: Set5
+    data_path: ./data/Set5
+  test_2:
+    data_name: Set14
+    data_path: ./data/Set14
