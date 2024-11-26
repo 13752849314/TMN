@@ -1,0 +1,600 @@
+23-10-27 16:17:24.017 - INFO:   name: MTN_x4
+  model: MTN
+  first_filters: 32
+  filters: 16
+  ratio: 8
+  drop: 0.0
+  scale: 4
+  in_ch: 3
+  out_ch: 3
+  epochs: 1000
+  lr: 0.0002
+  use_cuda: True
+  gpus: 1
+  gpu_idx: [0]
+  sf: 10
+  lossF: SLoss
+  loss_weight: 1.0
+  data_name: DF2K
+  data_path: ./data/DF2K
+  batch_size: 1
+  patch_size: 192
+  result_path: ./results\MTN_x4
+  model_path: ./checkpoints\MTN_x4
+  logs_path: ./logs\MTN_x4
+  check_point: 1000_1000.pth
+  min_size: 60000
+  test_data:[
+    test_1:[
+      data_name: Set5
+      data_path: ./data/Set5
+    ]
+    test_2:[
+      data_name: Set14
+      data_path: ./data/Set14
+    ]
+  ]
+
+23-10-27 16:17:24.081 - INFO: MTN(
+  (entry): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (entry_shrink): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (m11): METB(
+    (conv1): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=144, out_features=72, bias=False)
+        (qkv): Linear(in_features=72, out_features=216, bias=False)
+        (proj): Linear(in_features=72, out_features=144, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=144, out_features=36, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=36, out_features=144, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m12): METB(
+    (conv1): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=144, out_features=72, bias=False)
+        (qkv): Linear(in_features=72, out_features=216, bias=False)
+        (proj): Linear(in_features=72, out_features=144, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=144, out_features=36, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=36, out_features=144, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m13): METB(
+    (conv1): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=144, out_features=72, bias=False)
+        (qkv): Linear(in_features=72, out_features=216, bias=False)
+        (proj): Linear(in_features=72, out_features=144, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=144, out_features=36, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=36, out_features=144, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m21): METB(
+    (conv1): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=144, out_features=72, bias=False)
+        (qkv): Linear(in_features=72, out_features=216, bias=False)
+        (proj): Linear(in_features=72, out_features=144, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=144, out_features=36, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=36, out_features=144, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m22): METB(
+    (conv1): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(32, 4, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(4, 32, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(32, 4, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(4, 32, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=288, out_features=144, bias=False)
+        (qkv): Linear(in_features=144, out_features=432, bias=False)
+        (proj): Linear(in_features=144, out_features=288, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((288,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=288, out_features=72, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=72, out_features=288, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((288,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m23): METB(
+    (conv1): Conv2d(48, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(48, 6, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(6, 48, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(48, 6, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(6, 48, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=432, out_features=216, bias=False)
+        (qkv): Linear(in_features=216, out_features=648, bias=False)
+        (proj): Linear(in_features=216, out_features=432, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((432,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=432, out_features=108, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=108, out_features=432, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((432,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m31): METB(
+    (conv1): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(16, 2, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(2, 16, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=144, out_features=72, bias=False)
+        (qkv): Linear(in_features=72, out_features=216, bias=False)
+        (proj): Linear(in_features=72, out_features=144, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=144, out_features=36, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=36, out_features=144, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((144,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m32): METB(
+    (conv1): Conv2d(48, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(48, 6, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(6, 48, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(48, 6, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(6, 48, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=432, out_features=216, bias=False)
+        (qkv): Linear(in_features=216, out_features=648, bias=False)
+        (proj): Linear(in_features=216, out_features=432, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((432,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=432, out_features=108, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=108, out_features=432, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((432,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (m33): METB(
+    (conv1): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+    (conv2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1))
+    (conv3): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1))
+    (conv4): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1))
+    (rcab1): RCAB(
+      (body): Sequential(
+        (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(96, 12, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(12, 96, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (rcab2): RCAB(
+      (body): Sequential(
+        (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): CALayer(
+          (avg_pool): AdaptiveAvgPool2d(output_size=1)
+          (conv): Sequential(
+            (0): Conv2d(96, 12, kernel_size=(1, 1), stride=(1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv2d(12, 96, kernel_size=(1, 1), stride=(1, 1))
+            (3): Sigmoid()
+          )
+        )
+      )
+    )
+    (tf): MLABlock(
+      (atten): EffAttention(
+        (reduce): Linear(in_features=864, out_features=432, bias=False)
+        (qkv): Linear(in_features=432, out_features=1296, bias=False)
+        (proj): Linear(in_features=432, out_features=864, bias=True)
+        (attn_drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm1): LayerNorm((864,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+        (fc1): Linear(in_features=864, out_features=216, bias=True)
+        (act): ReLU()
+        (fc2): Linear(in_features=216, out_features=864, bias=True)
+        (drop): Dropout(p=0.0, inplace=False)
+      )
+      (norm2): LayerNorm((864,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (fusion): Conv2d(160, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (shrink): Conv2d(48, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (upsample): Upsampler(
+    (0): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): PixelShuffle(upscale_factor=2)
+    (2): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): PixelShuffle(upscale_factor=2)
+  )
+  (exit): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bilinear): Upsample(scale_factor=4.0, mode='bilinear')
+)
+23-10-27 16:17:24.207 - INFO: Test Set5
+23-10-27 16:18:12.828 - INFO: image baby
+psnr=34.58054501165816
+ssim=0.9146820306777954
+23-10-27 16:18:24.083 - INFO: image bird
+psnr=34.829419041117376
+ssim=0.9522663354873657
+23-10-27 16:18:33.401 - INFO: image butterfly
+psnr=29.657257569144782
+ssim=0.9421475529670715
+23-10-27 16:18:44.608 - INFO: image head
+psnr=34.25596623430819
+ssim=0.8631340265274048
+23-10-27 16:18:56.577 - INFO: image woman
+psnr=31.107534899947403
+ssim=0.9335756301879883
+23-10-27 16:18:56.577 - INFO: avg_psnr=32.88614455123518
+23-10-27 16:18:56.578 - INFO: avg_ssim=0.9211610555648804
+23-10-27 16:18:56.578 - INFO: Test Set14
+23-10-27 16:19:39.653 - INFO: image baboon
+psnr=23.2185008775429
+ssim=0.5818694233894348
+23-10-27 16:21:02.763 - INFO: image barbara
+psnr=26.395698331390175
+ssim=0.7717612385749817
+23-10-27 16:21:49.871 - INFO: image bridge
+psnr=26.22837001979006
+ssim=0.6945211291313171
+23-10-27 16:22:05.055 - INFO: image coastguard
+psnr=26.57362533642013
+ssim=0.6172446012496948
+23-10-27 16:22:17.730 - INFO: image comic
+psnr=24.581364116317744
+ssim=0.7867025136947632
+23-10-27 16:22:27.675 - INFO: image face
+psnr=33.01615622515884
+ssim=0.8250340223312378
+23-10-27 16:22:55.671 - INFO: image flowers
+psnr=29.401677079495503
+ssim=0.8565355539321899
+23-10-27 16:23:10.540 - INFO: image foreman
+psnr=31.398279129046376
+ssim=0.9381424784660339
+23-10-27 16:23:58.755 - INFO: image lenna
+psnr=33.731741208086625
+ssim=0.9044510722160339
+23-10-27 16:24:48.051 - INFO: image man
+psnr=28.427973392781624
+ssim=0.7994075417518616
+23-10-27 16:26:18.393 - INFO: image monarch
+psnr=33.76412848518385
+ssim=0.9551765322685242
+23-10-27 16:27:06.445 - INFO: image pepper
+psnr=33.57412154107009
+ssim=0.9212671518325806
+23-10-27 16:28:13.390 - INFO: image ppt3
+psnr=28.10048036084487
+ssim=0.9665282964706421
+23-10-27 16:28:49.071 - INFO: image zebra
+psnr=28.25036298453476
+ssim=0.8070662021636963
+23-10-27 16:28:49.071 - INFO: avg_psnr=29.04731993483311
+23-10-27 16:28:49.071 - INFO: avg_ssim=0.8161219358444214
